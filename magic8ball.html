@@ -1,1 +1,83 @@
 
+<html>
+<head>
+<title>Magic 8 Ball</title>
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+<style>
+textarea {
+position:fixed;
+top:0px;
+right:0px;
+width:50%;
+height:100%;
+}
+
+h1 {
+position:fixed;
+top:50%;
+left:25%;
+text-align:center;
+}
+
+input {
+position:fixed;
+top:60%;
+left:25%;
+text-align:center;
+width:20%;
+}
+
+button {
+position:fixed;
+top:65%;
+left:25%;
+text-align:center;
+width:20%;
+}
+</style>
+
+</head>
+<body>
+
+<a href='http://github.com/GrantSommerWebsites/Games/Magic8Ball'>Available on GitHub!</a>
+
+<input type='text' placeholder='Question'></input>
+<button class='roll'>Roll</button>
+<h1>Roll the 8 ball!</h1>
+
+<textarea readonly>
+==================
+Magic 8 Ball
+GrantSommer.com
+Grant Sommer Websites</textarea>
+
+<script>
+$(function(){
+$("h1").css("margin-left","-"+$("h1").width()/2+"px");
+$("h1").css("margin-top","-"+$("h1").height()/2+"px");
+
+$("button").css("margin-left","-"+$("button").width()/2+"px");
+$("button").css("margin-top","-"+$("button").height()/2+"px");
+
+$("input").css("margin-left","-"+$("input").width()/2+"px");
+$("input").css("margin-top","-"+$("input").height()/2+"px");
+});
+
+var answers = ["Yes","No","Mabbe","Definitly not","DEFINITLY","You asked that?"];
+var first = true;
+
+$(".roll").click(function(){
+if ($("input").val()) {
+$("h1").text(answers[Math.floor(Math.random() * ((answers.length-1) - 0 + 1)) + 0]);
+if (!first){$("textarea").val($("input").val()+": "+$("h1").text()+"\n"+$("textarea").val());$("input").val("");}
+first = false;
+} else {
+$("h1").text("You don't have a question!");
+}
+});
+</script>
+
+</body>
+</html>
