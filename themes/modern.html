@@ -1,1 +1,430 @@
+<html>
+<head>
+<title>GrantSommer.com Welcomes you!</title>
 
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+<style>
+body {
+overflow-x:hidden;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    background:gray;
+}
+ 
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    background:lightgray;
+}
+
+.background {
+z-index:-99999;
+position:fixed;
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+}
+
+.chatBubble {
+position:fixed;
+top:20%;
+left:50%;
+width:60%;
+height:50%;
+margin-left:-30%;
+background:white;
+border-radius:20px;
+padding:10px;
+display:none;
+text-align:center;
+z-index:-1;
+}
+
+.robot {
+position:fixed;
+bottom:10px;
+left:10px;
+display:none;
+z-index:-1;
+}
+
+.navButton {
+position:fixed;
+top:10px;
+right:10px;
+cursor:pointer;
+z-index:0;
+}
+
+.nav {
+position:fixed;
+top:0px;
+right:-25%;
+width:25%;
+height:100%;
+background:orange;
+-webkit-box-shadow: inset 0px 0px 79px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: inset 0px 0px 79px 0px rgba(0,0,0,0.75);
+box-shadow: inset 0px 0px 79px 0px rgba(0,0,0,0.75);
+z-index:99999;
+}
+
+.nav a:not(.user a) {
+background:orange;
+display:block;
+border-top:1px solid black;
+border-bottom:1px solid black;
+color:black;
+text-decoration:none;
+height:5%;
+padding:1%;
+font-size: 30px;
+}
+
+.nav .user .userImg {
+margin-right:5px;
+margin-top:-20px;
+height:50px;
+width:50px;
+background-image: url("http://static.dnaindia.com/sites/default/files/2015/10/02/361285-john-cena-2.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    display:inline-block;
+    vertical-align: text-top;
+    }
+
+.nav .user {
+position:absolute;
+bottom:5px;
+left:5px;
+width:100%;
+height:5%;
+vertical-align: text-top;
+}
+
+.nav .user .info {
+display:inline-block;
+}
+
+.signout {
+width: 64px;
+}
+
+.menu {
+background: rgba(0,0,0,0.6);
+position:fixed;
+top:0px;
+left:0px;
+height:100%;
+width:100%;
+z-index:1;
+color:white;
+text-align:center;
+display:none;
+}
+
+.menu h1 {
+font-weight:bold;
+border-bottom:3px solid white;
+text-align:center;
+}
+
+a {
+color:inherit;
+text-decoration:none;
+}
+
+a:hover {
+color:inherit;
+font-weight:bold;
+text-decoration:underline;
+}
+
+.menu table {
+position:relative;
+top:0px;
+left:50%;
+color:white;
+text-align:center;
+width:50%;
+margin-left:-30%;
+vertical-align: text-top;
+}
+
+.aBFound {
+position:fixed;
+top:25%;
+left:50%;
+width:25%;
+margin-left:-12.5%;
+background:yellow;
+border:5px solid gray;
+text-align:center;
+display:none;
+}
+
+.menuad1 {
+position:absolute;
+bottom:10px;
+left:30%;
+text-align:center;
+}
+</style>
+
+<script>
+$(function(){
+setTimeout(function(){
+$(".menuad1").css("margin-left","-"+$(".menuad1").width()+"px");
+},1000);
+});
+
+function blurElement(element, size, time) {
+     var filterVal = 'blur(' + size + 'px)';
+     $(element)
+         .css('filter', filterVal)
+         .css('webkitFilter', filterVal)
+         .css('mozFilter', filterVal)
+         .css('oFilter', filterVal)
+         .css('msFilter', filterVal)
+         .css('transition', 'all '+time+'s ease-out')
+         .css('-webkit-transition', 'all '+time+'s ease-out')
+         .css('-moz-transition', 'all '+time+'s ease-out')
+         .css('-o-transition', 'all '+time+'s ease-out');
+
+ }
+function unblur(element, time) {
+     var filterVal = 'blur(0px)';
+     $(element)
+         .css('filter', filterVal)
+         .css('webkitFilter', filterVal)
+         .css('mozFilter', filterVal)
+         .css('oFilter', filterVal)
+         .css('msFilter', filterVal)
+         .css('transition', 'all '+time+'s ease-out')
+         .css('-webkit-transition', 'all '+time+'s ease-out')
+         .css('-moz-transition', 'all '+time+'s ease-out')
+         .css('-o-transition', 'all '+time+'s ease-out');
+
+ }
+ 
+ function isVisible(elem)
+{
+    var $elem = $(elem);
+    var $window = $(window);
+
+    var docViewTop = $window.scrollTop();
+    var docViewBottom = docViewTop + $window.height();
+
+    var elemTop = $elem.offset().top;
+    var elemBottom = elemTop + $elem.height();
+
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+}
+
+$(function(){
+blurElement(".background",5,2);
+$(".chatBubble").fadeIn(2000);
+$(".robot").fadeIn(2000);
+});
+
+var menuVisible = false;
+
+$(window).scroll(function(){
+if (!menuVisible) {
+blurElement(".chatBubble",5,0.5);
+blurElement(".robot",5,0.5);
+$(".menu").fadeIn("slow",function(){menuVisible=true;});
+} else {
+unblur(".chatBubble",0.5);
+unblur(".robot",0.5);
+$(".menu").fadeOut("slow",function(){menuVisible=false;});
+}
+});
+</script>
+
+</head>
+<body>
+<img class='background' src='background.jpg'></img>
+<img class='navButton' src='lines.png' width='32'></img>
+<div class='nav'>
+<h2 style='text-align:center;'>Navigation</h2>
+<a href='#'>Home</a>
+<!--a href='#'>Create your own Website</a-->
+<a href='http://users.grantsommer.com'>Users</a>
+
+<div class='user'>
+<div class='userImg'></div><div class='info'><b>JOHN CENA</b><br><a href='#'>You have (1) notifications</a></div>
+</div>
+</div>
+
+<script>
+var nav = false;
+$(".navButton").click(function(){
+if (!nav) {
+
+/*$(".chatBubble").animate({
+left:"-10%"
+});
+$(".robot").animate({
+left:"-10%"
+});*/
+$(".chatBubble").fadeOut();
+$(".robot").fadeOut();
+$(".navButton").animate({
+right:"26%"
+});
+$(".nav").animate({
+right:"0.000001%"
+});
+nav = true;
+
+} else {
+
+/*$(".chatBubble").animate({
+left:"50%"
+});
+$(".robot").animate({
+left:"10px"
+});*/
+$(".chatBubble").fadeIn();
+$(".robot").fadeIn();
+$(".navButton").animate({
+right:"1%"
+});
+$(".nav").animate({
+right:"-25%"
+});
+nav = false;
+
+}
+});
+</script>
+
+<div class='content'>
+
+<div class='chatBubble'>
+<h1>Welcome to GrantSommer.com</h1>
+<h2><i>Websites of the future</i></h2><br><br>
+<h3>Where you can <a class='type'></a></h3>
+<h3><i>Scroll to see menu</i></h3>
+<script>
+
+var header = {
+"type": ["create","learn","inspire"],
+"time": 1000,
+"ix": 0,
+"count": 0,
+"start": function(){
+header.type.forEach(function(index) {
+header.ix++;
+index.split("").forEach(function(index) {
+setTimeout(function(){
+$(".type").append(index);
+},header.time);
+header.time = header.time + 100;
+});
+setTimeout(function() {
+$(".type").text("");
+if (header.ix === header.type.length) {
+setTimeout(function(){
+header.time = 1000;
+header.start();
+setTimeout(function(){
+if (header.count >= 3) {
+$(".type").text("create");
+}
+},1000);
+},1000);
+}
+},header.time + 1000);
+header.time = header.time + 1000;
+});
+}
+};
+header.start();
+
+</script>
+</div>
+
+<img src='http://grantsommer.com/robot.png' class='robot'></img>
+
+</div>
+
+<div class='menu'>
+<h1>Menu</h1>
+
+<table>
+<tr>
+<td>
+<h2>Websites:</h2>
+
+<a href='http://cedarspet.us'>Best Website</a><br>
+<a href='http://henryg.studio'>Henry G. Studio</a><br>
+<a href='http://xplodingwolf.us'>XplodingWolf Productions</a>
+
+
+</td>
+<td>
+
+<h2>Games:</h2>
+<a href='http://games.grantsommer.com/petblock.html'>Pet Block</a>
+
+</td>
+</tr>
+</table>
+</div>
+
+<div class='aBFound'>
+<h1>Please disable your adblock</h1>
+<h3>I get money from the ads which help with the costs of hosting websites and making fun games for you guys!</h3>
+</div>
+<script src='http://grantsommer.com/code/antiadblock.js'></script>
+<script>
+// Function called if AdBlock is not detected
+function adBlockNotDetected() {
+    console.log("No adblock found.");
+}
+// Function called if AdBlock is detected
+function adBlockDetected() {
+$(function(){
+$(".chatBubble, .robot, .menu, .navButton, .nav").fadeOut("fast",function(){$(".chatBubble, .robot, .menu, .navButton, .nav").remove();});
+$("script, .content").remove();
+});
+    $(".aBFound").show();
+}
+
+// Recommended audit because AdBlock lock the file 'fuckadblock.js' 
+// If the file is not called, the variable does not exist 'fuckAdBlock'
+// This means that AdBlock is present
+if(typeof fuckAdBlock === 'undefined') {
+    adBlockDetected();
+} else {
+    fuckAdBlock.onDetected(adBlockDetected);
+    fuckAdBlock.onNotDetected(adBlockNotDetected);
+    // and|or
+    fuckAdBlock.on(true, adBlockDetected);
+    fuckAdBlock.on(false, adBlockNotDetected);
+    // and|or
+    fuckAdBlock.on(true, adBlockDetected).onNotDetected(adBlockNotDetected);
+}
+
+// Change the options
+fuckAdBlock.setOption('checkOnLoad', false);
+// and|or
+fuckAdBlock.setOption({
+    debug: false,
+    checkOnLoad: false,
+    resetOnEnd: false
+});
+</script>
+</body>
+</html>
